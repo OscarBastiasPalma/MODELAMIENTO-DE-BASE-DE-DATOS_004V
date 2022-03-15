@@ -24,3 +24,17 @@ el objeto tiene atributos propios? si es asi, estamos en presencia de una entida
 
 entidades fuertes: no necesita para poder existir. ej: no depende de otra  ej, productos
 entidades caracteristicas o debil: necesita de otra para poder existir.
+
+un atributo es obligatorio s cuando es indispensable. 
+
+OBLIGATORIO = *
+OPCIONAL: O
+ID = # no se puede repetir
+
+Relaciones - Cardinalidad
+
+1 - 1
+1 - N
+N - N 
+
+
