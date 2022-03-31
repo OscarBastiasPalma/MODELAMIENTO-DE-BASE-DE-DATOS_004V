@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="EJERCICIO PRUEBA " id="7F4F9ED3-1BFB-12D8-5F9D-5D7092077945" version="3.5">
+<createdBy>CETECOM</createdBy>
+<createdTime>2022-03-31 00:21:14 UTC</createdTime>
+<ownerDesignName>EJERCICIO PRUEBA </ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>7F4F9ED3-1BFB-12D8-5F9D-5D7092077945</designId>
+</OSDM_Design>
