@@ -18,7 +18,6 @@ CREATE TABLE MARCA (
    CONSTRAINT PK_MARCA PRIMARY KEY (id_marca)
 
 );
--- INSERTAR DATOS A LA TABLA MARCA
 INSERT INTO MARCA VALUES(
     SQ_MARCA.NEXTVAL,
     'ADIDAS'
@@ -27,7 +26,6 @@ INSERT INTO MARCA VALUES(
     SQ_MARCA.NEXTVAL,
     'NIKE'
     );
--- CONSULTAR A LA TABLA MARCA 
 SELECT id_marca,nom_marca FROM MARCA ;
 
 
@@ -37,7 +35,6 @@ CREATE SEQUENCE SQ_ARTICULO
 START WITH 1
 INCREMENT BY 1 ;
 
--- CREAR TABLA ARTICULO
 CREATE TABLE ARTICULO (
    id_articulo number,
    nom_articulo varchar2(25) NOT NULL,
@@ -47,7 +44,6 @@ CREATE TABLE ARTICULO (
    id_marca number NOT NULL,
    CONSTRAINT PK_ARTICULO PRIMARY KEY (id_articulo)
 );
--- INSERTAR DATOS A LA TABLA MARCA
 INSERT INTO ARTICULO VALUES(
     SQ_ARTICULO.NEXTVAL,
     'ZAPATILLA',
@@ -64,7 +60,6 @@ INSERT INTO ARTICULO VALUES(
     20,
     2
     );
--- CONSULTAR A LA TABLA ARTICULO 
 SELECT id_articulo,nom_articulo,precio,stock_actual,stock_minimo,id_marca FROM ARTICULO ;
 -----------------------------------------------------------
 -- CREAR SEQUENCIA A LA TABLA COMUNA
@@ -121,7 +116,7 @@ INCREMENT BY 1 ;
 
 CREATE TABLE ZONA (
     id_zona number,
-    nom_zona varchar(10),
+    nom_zona varchar(10) NOT NULL,
     porc number
     );
     
@@ -151,3 +146,62 @@ SELECT id_factura,id_articulo,id_vendedor,fecha_factura FROM FACTURA;
 CREATE SEQUENCE SQ_DETALLE_FACTURA
 START WITH 1
 INCREMENT BY 1 ;
+
+CREATE TABLE DETALLE_FACTURA (
+    id_factura number,
+    id_articulo number NOT NULL,
+    cantidad number NOT NULL,
+    CONSTRAINT PK_DETALLE_FACTURA PRIMARY KEY (id_factura)
+    );
+
+INSERT INTO DETALLE_FACTURA VALUES (SQ_DETALLE_FACTURA.NEXTVAL,1,2);
+
+SELECT id_factura,id_articulo,cantidad FROM DETALLE_FACTURA;
+-----------------------------------------------------------
+-- CREAR SEQUENCIA A LA TABLA CATEGORIA
+CREATE SEQUENCE SQ_CATEGORIA
+START WITH 1
+INCREMENT BY 1 ;
+
+CREATE TABLE CATEGORIA (
+    id_categoria number,
+    nom_categoria varchar2(20) NOT NULL,
+    porcentaje number NOT NULL,
+    CONSTRAINT PK_CATEGORIA PRIMARY KEY (id_categoria)    
+    );
+
+INSERT INTO CATEGORIA VALUES (SQ_CATEGORIA.NEXTVAL,'CALZADO',20);
+
+SELECT id_categoria,nom_categoria,porcentaje FROM CATEGORIA;
+
+-----------------------------------------------------------
+-- CREAR SEQUENCIA A LA TABLA VENDEDOR
+CREATE SEQUENCE SQ_VENDEDOR
+START WITH 1
+INCREMENT BY 1 ;
+
+CREATE TABLE VENDEDOR ( 
+    id_vendedor number,
+    rut_vendedor varchar2(10)NOT NULL,
+    nombres varchar2(25) NOT NULL,
+    paterno varchar2(15) NOT NULL,
+    materno varchar2(15),
+    fecnac date NOT NULL,
+    feccontrato date NOT NULL,
+    sueldo number NOT NULL,
+    comision number NOT NULL,
+    id_zona number,
+    id_categoria number,
+    CONSTRAINT PK_VENDEDOR PRIMARY KEY (id_vendedor),
+    CONSTRAINT UN_RUT_VENDEDOR UNIQUE (rut_vendedor),
+    CONSTRAINT FK_VENDEDOR_CATEGORIA FOREIGN KEY(id_categoria) REFERENCES CATEGORIA(id_categoria)   
+    );
+    
+INSERT INTO VENDEDOR VALUES(SQ_VENDEDOR.NEXTVAL,'18637642-0','RENE','ALLENDE','ALLENDE',TO_DATE('15-01-1990', 'DD-MM-YYYY'),TO_DATE('12-01-2020', 'DD-MM-YYYY'),1000000,200000,1,1);
+
+SELECT id_vendedor,rut_vendedor,nombres,paterno,materno,fecnac,feccontrato,sueldo,comision,id_zona,VENDEDOR.id_categoria,CATEGORIA.nom_categoria 
+FROM VENDEDOR
+LEFT JOIN CATEGORIA ON CATEGORIA.id_categoria = VENDEDOR.id_categoria;
+
+-----------------------------------------------------------
+
